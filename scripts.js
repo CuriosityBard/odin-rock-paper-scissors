@@ -6,12 +6,12 @@ function computerPlay() {
 }
 
 function playerChoice() {
-    playerChoice = prompt("Please enter rock, paper, or scissors.");
+    choice = prompt("Please enter rock, paper, or scissors.");
     // return the response with only the first letter capitalized
-    return playerChoice.slice(0,1).toUpperCase() + playerChoice.slice(1).toLowerCase();
+    return choice.slice(0,1).toUpperCase() + choice.slice(1).toLowerCase();
 }
 
-function compareChoices(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         return `It's a tie! You both chose ${playerSelection}`;
     } else if (playerSelection === 'Rock' && computerSelection === 'Paper') {
@@ -30,3 +30,29 @@ function compareChoices(playerSelection, computerSelection) {
         return 'Something went wrong!';
     }
 }
+
+function game() {
+    let playerScore = 0;
+    let computerScore = 0;
+
+    for (let i = 0; i < 5; i++) {
+        let result = playRound(playerChoice(), computerPlay());
+        console.log(result);
+
+        if (result.slice(0,9) === 'You win! ') {
+            playerScore += 1;
+        } else if (result.slice(0,9) === 'You lose!') {
+            computerScore += 1;
+        }
+    }
+
+    if (playerScore > computerScore) {
+        console.log('You win the game! Congrats!');
+    } else if (playerScore < computerScore) {
+        console.log('You lost the game! Sorry.');
+    } else {
+        console.log("You tied with the computer.");
+    }
+}
+
+game();
