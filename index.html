@@ -6,6 +6,31 @@
     <meta name="viewport" content="width=viewport-width;initial-scale=1" />
 </head>
 <body>
-    <h1>Please open your console with F12 to see the game results.</h1>
+    <h1>Let's play some Rock, Paper, Scissors!</h1>
+    <div id="rules">
+        <p>To play the game, click the button for your choice of rock, paper, or scissors.</p>
+        <p>The computer will pick its choice, and you'll see who wins. Each win is worth one point.</p>
+        <p>Once one player - either you or the computer - has <strong>five (5)</strong> points, they're the winner!</p>
+    </div>
+    <div id="game">
+        <h2>Choose Your Weapon</h2>
+        <div id="buttons">
+            <button class="choice" id="rock" onclick="chooseRock()">Rock</button>
+            <button class="choice" id="paper" onclick="choosePaper()">Paper</button>
+            <button class="choice" id="scissors" onclick="chooseScissors()">Scissors</button>
+        </div>
+
+        <div id="results">
+            <p class="hidden result" id="player-result"></p>
+            <p class="hidden result" id="computer-result"></p>
+            <p class="hidden result" id="game-result"></p>
+        </div>
+
+        <div id="points">
+            <p class="point-counter">Player: <strong id="player-points"></strong></p>
+            <p class="point-counter">Player: <strong id="computer-points"></strong></p>
+        </div>
+    </div>
+
     <script type="text/javascript" src="./scripts.js"></script>
 </body>
