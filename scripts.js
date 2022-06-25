@@ -1,3 +1,98 @@
+const domElements = {
+    // putting these in an object for easy access
+    fullGame: document.querySelector('#game'),
+    newGame: document.querySelector('#new-game'),
+
+    buttons: document.querySelector('#buttons'),
+
+    gameHeader: document.querySelector('#game-header'),
+
+    playerScore: document.querySelector('#player-points'),
+    computerScore: document.querySelector('#computer-points'),
+
+    playerResult: document.querySelector('#player-result'),
+    computerResult: document.querySelector('#computer-result'),
+    gameResult: document.querySelector('#game-result'),
+
+    playerResultArea: document.querySelector('#player-result-area'),
+    computerResultArea: document.querySelector('#computer-result-area'),
+
+    hideResults: function() {
+        this.playerResultArea.classList.add('hide');
+        this.computerResultArea.classList.add('hide');
+    },
+    hideButtons: function() {
+        this.gameHeader.classList.add('hide');
+        this.buttons.classList.add('hide');
+    },
+    showButtons: function() {
+        this.gameHeader.classList.remove('hide');
+        this.buttons.classList.remove('hide');
+    },
+    showNewGame: function() {
+        this.newGame.classList.remove('hide');
+    }
+}
+
+const scoring = {
+    playerScore: 0,
+    computerScore: 0,
+
+    firstRound: true,
+
+    checkForWin: function() {
+        if (this.playerScore === 5 || this.computerScore === 5) {
+            domElements.hideResults();
+            this.firstRound = true;
+
+            domElements.hideButtons();
+            domElements.showNewGame();
+
+            domElements.gameResult.classList.add('game-over');
+
+            if (this.playerScore === 5) {
+                domElements.gameResult.textContent = "Player wins the game!";
+            } else {
+                domElements.gameResult.textContent = "Computer wins the game!";
+            }
+        }
+    },
+
+    incrementPlayerScore: function() {
+        domElements.gameResult.textContent = "Player wins this round!";
+
+        this.playerScore++;
+        domElements.playerScore.textContent = this.playerScore;
+
+        this.checkForWin();
+    },
+    incrementComputerScore: function() {
+        domElements.gameResult.textContent = "Computer wins this round!";
+
+        this.computerScore++;
+        domElements.computerScore.textContent = this.computerScore;
+
+        this.checkForWin();
+    },
+
+    resetScores: function() {
+        this.playerScore = 0;
+        this.computerScore = 0;
+        domElements.computerScore.textContent = this.computerScore;
+        domElements.playerScore.textContent = this.playerScore;
+        domElements.gameResult.textContent = "";
+    }
+}
+
+function newGame() {
+    scoring.resetScores();
+
+    domElements.fullGame.classList.remove('hide');
+    domElements.newGame.classList.add('hide');
+
+    domElements.showButtons();
+}
+
 function computerPlay() {
     let randomNum = Math.floor(Math.random() * 3);
     // use random number to choose a sign
@@ -5,54 +100,45 @@ function computerPlay() {
     return computerChoice;
 }
 
-function playerChoice() {
-    choice = prompt("Please enter rock, paper, or scissors.");
-    // return the response with only the first letter capitalized
-    return choice.slice(0,1).toUpperCase() + choice.slice(1).toLowerCase();
+function chooseRock() {
+    playRound('Rock', computerPlay());
+}
+function choosePaper() {
+    playRound('Paper', computerPlay());
+}
+function chooseScissors() {
+    playRound('Scissors', computerPlay());
 }
 
 function playRound(playerSelection, computerSelection) {
+    domElements.playerResult.textContent = playerSelection;
+    domElements.computerResult.textContent = computerSelection;
+
+    // remove 'hide' class from player and computer results if it's the first round
+    if (scoring.firstRound) {
+        domElements.playerResultArea.classList.remove('hide');
+        domElements.computerResultArea.classList.remove('hide');
+
+        scoring.resetScores();
+
+        scoring.firstRound = false;
+    }
+
     if (playerSelection === computerSelection) {
-        return `It's a tie! You both chose ${playerSelection}`;
+        domElements.gameResult.textContent = "It's a tie!";
     } else if (playerSelection === 'Rock' && computerSelection === 'Paper') {
-        return 'You lose! Paper beats Rock.';
+        scoring.incrementComputerScore();
     } else if (playerSelection === 'Paper' && computerSelection === 'Rock') {
-        return 'You win! Paper beats Rock.';
+        scoring.incrementPlayerScore();
     } else if (playerSelection === 'Rock' && computerSelection === 'Scissors') {
-        return 'You win! Rock beats Scissors.';
+        scoring.incrementPlayerScore();
     } else if (playerSelection === 'Scissors' && computerSelection === 'Rock') {
-        return 'You lose! Rock beats Scissors.';
+        scoring.incrementComputerScore();
     } else if (playerSelection === 'Paper' && computerSelection === 'Scissors') {
-        return 'You lose! Scissors beat Paper.';
-    } else if (playerSelection === 'Scissors' && computerSelection === 'Rock') {
-        return 'You win! Scissors beat Paper.';
+        scoring.incrementComputerScore();
+    } else if (playerSelection === 'Scissors' && computerSelection === 'Paper') {
+        scoring.incrementPlayerScore();
     }  else {
-        return 'Something went wrong!';
+        console.log('Something went wrong!');
     }
 }
-
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-
-    for (let i = 0; i < 5; i++) {
-        let result = playRound(playerChoice(), computerPlay());
-        console.log(result);
-
-        if (result.slice(0,9) === 'You win! ') {
-            playerScore += 1;
-        } else if (result.slice(0,9) === 'You lose!') {
-            computerScore += 1;
-        }
-    }
-
-    if (playerScore > computerScore) {
-        console.log('You win the game! Congrats!');
-    } else if (playerScore < computerScore) {
-        console.log('You lost the game! Sorry.');
-    } else {
-        console.log("You tied with the computer.");
-    }
-}
-
-game();

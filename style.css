@@ -1,0 +1,107 @@
+:root {
+    --background: #F3C178;
+    --secondary-bg: #F9E8C8;
+    --text: #11001C; 
+    --button-bg: #85FFDC;
+    --button-text: #025038;
+    --button-border: #037754;
+    --shadow: #9B7559;
+    --highlight: #FDF7EC;
+    --secondary-highlight: #F5D8A3;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+
+    font-family: 'Rubik', 'Century Gothic', sans-serif;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    text-align: center;
+}
+
+div {
+    background-color: var(--secondary-bg);
+
+    padding: 2em;
+    margin: 2em;
+
+    border-radius: 5px;
+
+    box-shadow: 10px 10px var(--secondary-highlight);
+}
+
+h1, 
+h2 {
+    font-family: 'Sigmar One', 'Candara', cursive;
+    text-align: center;
+    text-shadow: 3px 3px 3px var(--highlight);
+}
+h1 {
+    font-size: 4em;
+
+    margin-bottom: 0;
+}
+h2 {
+    font-size: 2em;
+
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+}
+
+button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+
+    padding: 0.5em 1em;
+    margin: 0 0.5em 5px 0.5em;
+
+    border: solid 2px var(--button-border);
+    outline: solid 1px var(--button-text);
+    border-radius: 5px;
+
+    font-size: 1.2em;
+    font-family: 'Rubik', 'Century Gothic', sans-serif;
+}
+
+div#buttons,
+div#results,
+div#points {
+    box-shadow: none;
+
+    padding: 0;
+    margin: 0;
+}
+div#buttons,
+div#points {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+#points p {
+    border: solid 1px var(--shadow);
+    
+    background-color: var(--secondary-highlight);
+
+    width: 10em;
+
+    padding: 4px;
+}
+
+@media only screen and (max-width: 750px) {
+    h1 {
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+}
+
+.hide {
+    display: none !important;
+}
