@@ -1,5 +1,10 @@
 const domElements = {
     // putting these in an object for easy access
+    fullGame: document.querySelector('#game'),
+    newGame: document.querySelector('#new-game'),
+
+    buttons: document.querySelector('#buttons'),
+
     playerScore: document.querySelector('#player-points'),
     computerScore: document.querySelector('#computer-points'),
 
@@ -13,6 +18,15 @@ const domElements = {
     hideResults: function() {
         this.playerResultArea.classList.add('hide');
         this.computerResultArea.classList.add('hide');
+    },
+    hideButtons: function() {
+        this.buttons.classList.add('hide');
+    },
+    showButtons: function() {
+        this.buttons.classList.remove('hide');
+    },
+    showNewGame: function() {
+        this.newGame.classList.remove('hide');
     }
 }
 
@@ -23,18 +37,20 @@ const scoring = {
     firstRound: true,
 
     checkForWin: function() {
-        if (this.playerScore === 5) {
-            domElements.gameResult.textContent = "Player wins the game!"
-            domElements.gameResult.classList.add('game-over');
-
+        if (this.playerScore === 5 || this.computerScore === 5) {
             domElements.hideResults();
             this.firstRound = true;
-        } else if (this.computerScore === 5) {
-            domElements.gameResult.textContent = "Computer wins the game!"
+
+            domElements.hideButtons();
+            domElements.showNewGame();
+
             domElements.gameResult.classList.add('game-over');
 
-            domElements.hideResults();
-            this.firstRound = true;
+            if (this.playerScore === 5) {
+                domElements.gameResult.textContent = "Player wins the game!";
+            } else {
+                domElements.gameResult.textContent = "Computer wins the game!";
+            }
         }
     },
 
@@ -60,7 +76,17 @@ const scoring = {
         this.computerScore = 0;
         domElements.computerScore.textContent = this.computerScore;
         domElements.playerScore.textContent = this.playerScore;
+        domElements.gameResult.textContent = "";
     }
+}
+
+function newGame() {
+    scoring.resetScores();
+
+    domElements.fullGame.classList.remove('hide');
+    domElements.newGame.classList.add('hide');
+
+    domElements.showButtons();
 }
 
 function computerPlay() {
