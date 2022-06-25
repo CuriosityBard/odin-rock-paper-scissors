@@ -67,10 +67,6 @@ button {
     font-family: 'Rubik', 'Century Gothic', sans-serif;
 }
 
-.hide {
-    display: none;
-}
-
 div#buttons,
 div#results,
 div#points {
@@ -103,4 +99,8 @@ div#points {
     h2 {
         font-size: 1.5em;
     }
+}
+
+.hide {
+    display: none !important;
 }
