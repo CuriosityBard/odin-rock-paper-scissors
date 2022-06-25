@@ -5,6 +5,8 @@ const domElements = {
 
     buttons: document.querySelector('#buttons'),
 
+    gameHeader: document.querySelector('#game-header'),
+
     playerScore: document.querySelector('#player-points'),
     computerScore: document.querySelector('#computer-points'),
 
@@ -20,9 +22,11 @@ const domElements = {
         this.computerResultArea.classList.add('hide');
     },
     hideButtons: function() {
+        this.gameHeader.classList.add('hide');
         this.buttons.classList.add('hide');
     },
     showButtons: function() {
+        this.gameHeader.classList.remove('hide');
         this.buttons.classList.remove('hide');
     },
     showNewGame: function() {

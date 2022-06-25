@@ -5,9 +5,12 @@
     <meta name="description" content="Rock paper scissors game" />
     <meta name="viewport" content="width=viewport-width;initial-scale=1" />
     <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sigmar+One&display=swap" rel="stylesheet"> 
 </head>
 <body>
-    <h1>Let's play some Rock, Paper, Scissors!</h1>
+    <h1>Let's play some<br>Rock, Paper, Scissors!</h1>
     <div id="rules">
         <p>To play the game, click the button for your choice of rock, paper, or scissors.</p>
         <p>The computer will pick its choice, and you'll see who wins. Each win is worth one point.</p>
@@ -15,22 +18,22 @@
     </div>
     <button id="new-game" onclick="newGame()">New Game</button>
     <div id="game" class="hide">
-        <h2>Choose Your Weapon</h2>
+        <h2 id="game-header">Choose Your Weapon</h2>
         <div id="buttons">
             <button class="choice" id="rock" onclick="chooseRock()">Rock</button>
             <button class="choice" id="paper" onclick="choosePaper()">Paper</button>
             <button class="choice" id="scissors" onclick="chooseScissors()">Scissors</button>
         </div>
 
+        <div id="points">
+            <p class="point-counter">Player: <strong id="player-points">0</strong></p>
+            <p class="point-counter">Computer: <strong id="computer-points">0</strong></p>
+        </div>
+
         <div id="results">
             <p id="player-result-area" class="hide">Player chose: <strong class="result" id="player-result"></strong></p>
             <p id="computer-result-area" class="hide">Computer chose: <strong class="result" id="computer-result"></strong></p>
             <p class="result" id="game-result"></p>
-        </div>
-
-        <div id="points">
-            <p class="point-counter">Player: <strong id="player-points">0</strong></p>
-            <p class="point-counter">Computer: <strong id="computer-points">0</strong></p>
         </div>
     </div>
 
